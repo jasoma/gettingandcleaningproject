@@ -1,0 +1,22 @@
+# History files
+.Rhistory
+
+# Example code in package build process
+*-Ex.R
+
+# R data files from past sessions
+.Rdata
+
+# RStudio files
+.Rproj.user
+*.Rproj
+
+# OSX
+.DS_Store
+
+# Don't need to track the zip or data files
+*.zip
+UCI HAR Dataset/
+
+# Don't track the instructions
+Project.pdf
