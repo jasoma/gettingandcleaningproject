@@ -1,6 +1,6 @@
 
 # Notes:
-# 
+#
 # Each line in the 'X' file is a complete set of feature observations where the values are separated by spaces.
 # The index of each value within a line matches it to the feature number in 'features.txt', combining the two
 # will give you a table where the columns are features and the rows the measured value.
@@ -18,3 +18,34 @@
 # - Read in only the rows we care about and name them at the same time using the vector created above
 #   http://stackoverflow.com/questions/5788117/only-read-limited-number-of-columns-in-r
 # - Read in the auxilary files containing subjectId and activity and bind them by column into the data set
+
+# TODO: Automatically download the dataset if missing
+
+# Read in the file containing the labels for the columns in the 'X' data files
+features.all <- read.table("data/features.txt", colClasses = c("numeric", "character"), col.names = c("index", "label"))
+
+# subset to only those we care about
+# NOTE: It's unclear from the description if meanFreq() is considered a mean, the pattern
+# below will retain it.
+features.mean_std <- grep("-mean|-std", features.all$label, value = TRUE)
+features <- features.all[features.all$label %in% features.mean_std, ]
+
+# when loading the 'X' data files we want to discard the columns that are not a mean or std column.
+# to do that we construct a character vector to pass to colClasses where columns we want have a class
+# of 'numeric' and columns we don't have 'NULL' which will cause `read.table` to discard them.
+is.mean_std <- function(index) {
+    index %in% features$index
+}
+
+data.cols <- sapply(seq(1, max(features.all$index)), function(x) if(is.mean_std(x)) "numeric" else "NULL")
+
+# now we can read in either of the two data files
+read.datafile <- function(filename, ...) {
+    # read the file passing in the classes vector we assembled
+    df <- read.table(filename, colClasses = data.cols, ...)
+    # set the column names from the features data
+    names(df) <- features$label
+    df
+}
+
+

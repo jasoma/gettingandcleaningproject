@@ -16,7 +16,7 @@
 
 # Don't need to track the zip or data files
 *.zip
-UCI HAR Dataset/
+data/
 
 # Don't track the instructions
 Project.pdf
