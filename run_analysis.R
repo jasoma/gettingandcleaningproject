@@ -63,3 +63,23 @@ read.yfile <- function(filename) {
 read.subjectfile <- function(filename) {
     read.table(filename, colClasses = "numeric", col.names = "subject_id")
 }
+
+# load all the training files and combine them
+train.dir <- "data/train"
+train.x <- read.xfile(file.path(train.dir, "X_train.txt"))
+train.y <- read.yfile(file.path(train.dir, "y_train.txt"))
+train.subj <- read.subjectfile(file.path(train.dir, "subject_train.txt"))
+train <- cbind(train.subj, train.y, train.x)
+
+# load all the test files and combine them
+test.dir <- "data/test"
+test.x <- read.xfile(file.path(test.dir, "X_test.txt"))
+test.y <- read.yfile(file.path(test.dir, "y_test.txt"))
+test.subj <- read.subjectfile(file.path(test.dir, "subject_test.txt"))
+test <- cbind(test.subj, test.y, test.x)
+
+# add an extra column to each set for identifying it's origin then merge the two
+sourcetype <- factor(c("train", "test"))
+train$source <- sourcetype[1]
+test$source <- sourcetype[2]
+combined <- rbind(train, test)
