@@ -87,5 +87,6 @@ train$source <- sourcetype[1]
 test$source <- sourcetype[2]
 combined <- rbind(train, test)
 
-# and then make subject_id a factor
+# and then make subject_id a factor and sort by subject and activity
 combined$subject_id <- factor(combined$subject_id)
+combined <- combined[order(combined$subject_id, combined$activity), ]
