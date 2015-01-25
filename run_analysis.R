@@ -45,6 +45,9 @@ read.xfile <- function(filename, ...) {
     df <- read.table(filename, colClasses = data.cols, ...)
     # set the column names from the features data
     names(df) <- features$label
+    # then replace '-' and '()' in the names so they can be used unquoted
+    names(df) <- gsub("()", "", names(df), fixed = TRUE)
+    names(df) <- gsub("-", "_", names(df), fixed = TRUE)
     df
 }
 
@@ -83,3 +86,6 @@ sourcetype <- factor(c("train", "test"))
 train$source <- sourcetype[1]
 test$source <- sourcetype[2]
 combined <- rbind(train, test)
+
+# and then make subject_id a factor
+combined$subject_id <- factor(combined$subject_id)
