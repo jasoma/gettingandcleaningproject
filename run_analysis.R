@@ -113,7 +113,7 @@ read.yfile <- function(filename) {
 #'         same number row in an 'X_' file and contains the id of the subject that performed the activity
 #'         measured in that row.
 read.subjectfile <- function(filename) {
-    read.table(filename, colClasses = "factor", col.names = "subject_id")
+    read.table(filename, colClasses = "numeric", col.names = "subject_id")
 }
 
 #' Reads in all the 'test' and 'train' data using the functions above and then combines the two sets
