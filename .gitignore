@@ -18,5 +18,8 @@
 *.zip
 data/
 
+# Don't track the output file
+averages.txt
+
 # Don't track the instructions
 Project.pdf
