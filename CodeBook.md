@@ -2,7 +2,7 @@
 
 ### Notes on the raw data structure
 
-- Each rpw in an `X_*` file is a complete set of feature observations where the values are separated by spaces.
+- Each row in an `X_*` file is a complete set of feature observations where the values are separated by spaces.
 - The column-index of each value within a row matches it to the feature number in [features.txt](features.txt, combining the two will result in a table with a columns for each feature observation and rows of measurements.
 - Each row in a `y_*` file is linked to the the row in the same position in a corresponding `X_*` file and records what type of activity the measurements are from. 
 - The coding from number to activity type is in [activity_labels.txt](activity_labels.txt).
